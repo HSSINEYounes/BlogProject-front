@@ -1,0 +1,45 @@
+<app-nav-bar></app-nav-bar>
+
+<div *ngIf="blog" class="container mt-5">
+    <h1 class="text-xl font-bold">{{ blog.title }}</h1>
+    <p class="mt-3"><strong>ID:</strong> {{ blog.id }}</p>
+    <p class="mt-1"><strong>Text:</strong> {{ blog.text }}</p>
+    <div>
+        <button (click)="upvote(blog.id)" class="btn btn-success btn-sm mr-1">Upvote</button>
+        <button (click)="downvote(blog.id)" class="btn btn-danger btn-sm">Downvote</button>
+    </div>
+    <div *ngIf="blog.creator" class="mt-4" [routerLink]="['/profile', blog.creator.uid]">
+        <h3 class="text-lg font-semibold">Creator Details:</h3>
+        <p class="mt-1"><strong>Name:</strong> {{ blog.creator.firstname }} {{ blog.creator.lastname }}</p>
+    </div>
+
+    <div *ngIf="blog.pictures && blog.pictures.length" class="mt-4">
+        <h3 class="text-lg font-semibold">Pictures:</h3>
+        <div class="mt-2 grid grid-cols-3 gap-4">
+            <div *ngFor="let picture of blog.pictures" class="overflow-hidden rounded">
+                <img [src]="picture.url" alt="Picture related to blog" class="w-full h-auto object-cover">
+            </div>
+        </div>
+    </div>
+    <div *ngIf="blog.groupe" class="mt-4">
+        <h3 class="text-lg font-semibold">Group:</h3>
+        <p class="mt-1">{{ blog.groupe.name }}</p>
+    </div>
+    <div *ngIf="comments && comments.length" class="mt-5">
+        <h2 class="text-lg font-semibold">Comments:</h2>
+        <div class="mt-2" >
+            <div *ngFor="let comment of comments" class="p-3 border rounded mb-2">
+                <p *ngIf="comment.commenter"><strong> {{ comment.commenter.firstname }} {{ comment.commenter.lastname }}</strong></p>
+                <p>{{ comment.text }}</p>
+            </div>
+        </div>
+    </div>
+    <form>
+        <div class="mb-3" *ngIf="newComment && profile">
+            <label for="text" class="form-label">Content</label>
+            <textarea class="form-control" id="text" [(ngModel)]="newComment.text" name="text"
+                placeholder="Enter content" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="onSubmit()" >Create Blog</button>
+    </form>
+</div>

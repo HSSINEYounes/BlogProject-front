@@ -1,0 +1,65 @@
+<div class="container mt-4">
+
+    <div *ngFor="let blog of blogs">
+        <div *ngIf="blogsAndVotes[blog.id]">
+            Upvotes: {{ blogsAndVotes[blog.id].upvotes }}<br>
+            Downvotes: {{ blogsAndVotes[blog.id].downvotes }}
+        </div>
+    </div>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Blog Posts</h2>
+                <div class="list-group">
+                    <div *ngFor="let blog of blogs" class="card mb-3 shadow-sm">
+                        <div class="card-body">
+                            <p class="card-text" *ngIf="blog.creator" [routerLink]="['/profile', blog.creator.uid]"
+                                style="cursor: pointer;">{{ blog.creator.firstname }} {{ blog.creator.lastname }}</p>
+                            <p class="card-text" *ngIf="!blog.creator">Anonymous</p>
+                            <div [routerLink]="['/blogDetails', blog.id]" style="cursor: pointer;">
+                                <h5 class="card-title">{{ blog.title }}</h5>
+                                <p class="card-text">{{ blog.text }}</p>
+                            </div>
+                            <div>
+                                <div>{{upVotes}}</div>
+                                <button (click)="upvote(blog.id)" class="btn btn-success btn-sm mr-1">Upvote</button>
+                                <div>{{downVotes}}</div>
+                                <button (click)="downvote(blog.id)" class="btn btn-danger btn-sm">Downvote</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <h2>Suggested Users</h2>
+                <div *ngFor="let u of suggestedUsers" class="list-group-item list-group-item-action"
+                    [routerLink]="['/profile', u.uid]">
+                    {{ u.lastname }}
+                    {{ u.firstname }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="selectedBlog" class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Update Blog Post</h2>
+            <form (ngSubmit)="updateBlog(selectedBlog)">
+                <div class="mb-3">
+                    <label for="updateTitle" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="updateTitle" [(ngModel)]="selectedBlog.title"
+                        name="title" required>
+                </div>
+                <div class="mb-3">
+                    <label for="updateText" class="form-label">Content</label>
+                    <textarea class="form-control" id="updateText" [(ngModel)]="selectedBlog.text" name="text" rows="3"
+                        required></textarea>
+                </div>
+                <button type="submit" class="btn btn-success">Update Blog</button>
+            </form>
+        </div>
+    </div>
+</div>

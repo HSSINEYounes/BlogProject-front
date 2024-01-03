@@ -1,0 +1,24 @@
+<nav class="flex justify-between items-center h-10 bg-cyan-500 text-white">
+    <div>Logo</div>
+
+    <div class="relative">
+        <input class="rounded-lg w-60 pl-4 h-10 text-black mr-2" placeholder="Search by lastname" [(ngModel)]="search" (ngModelChange)="onSearchChange()"/>
+
+        <div *ngIf="search != ''" class="absolute top-full left-0 mt-1 w-60 bg-white text-black border border-gray-200 rounded-lg shadow" id="result" style="z-index: 9999;">
+            <ul>
+                <li  class="px-4 py-2 hover:bg-gray-100 cursor-pointer" *ngFor="let result of usersRes" >
+                    <div  [routerLink]="['/profile', result.uid]">{{result.firstname}} {{result.lastname}}</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div>
+        <ul class="flex">
+            <li class="mx-4 cursor-pointer"><a href="/homePage">Acceuil</a></li>
+            <li class="mx-4 cursor-pointer" [routerLink]="['/profile', currentUser.uid]" *ngIf="currentUser">Profile</li>
+            <li class="mx-4 cursor-pointer">option 3</li>
+            <li (click)="onLogout()" class="mx-4 cursor-pointer">Logout</li>
+        </ul>
+    </div>
+</nav>

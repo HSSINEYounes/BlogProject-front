@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+</head>
+<body>
+    <div class="flex justify-center">
+        <div class="mt-32">
+            <form class="flex flex-col px-4 py-6 border rounded-lg items-center">
+                    <input type="text" placeholder="Username" name="username" [(ngModel)]="username" class="w-64 rounded-lg color-gray my-2" />
+                    <input type="text" placeholder="Firstname" name="firstname" [(ngModel)]="firstname" class="w-64 rounded-lg color-gray my-2" />
+                    <input type="text" placeholder="Lastname" name="lastname" [(ngModel)]="lastname" class="w-64 rounded-lg color-gray my-2" />
+                    <input type="text" placeholder="Phone number" name="phone_number" [(ngModel)]="phone_number" class="w-64 rounded-lg color-gray my-2" />
+                    <input type="text" placeholder="Email" name="email" [(ngModel)]="email" class="w-64 rounded-lg color-gray my-2" />
+                    <input type="password" placeholder="Password" name="password" [(ngModel)]="password" class="w-64 rounded-lg color-gray my-2" />
+                    <button type="submit" value="Login" (click)="onSubmit()" class="bg-cyan-500 text-white w-44 h-8 rounded-lg color-gray mt-4 mb-2">Sign Up</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

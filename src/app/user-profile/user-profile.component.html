@@ -1,0 +1,42 @@
+<app-nav-bar></app-nav-bar>
+
+<div class="container mt-4" *ngIf="profile">
+    <div class="row">
+        <div class="col-md-6" *ngIf="user?.uid == profile.uid ">
+            <form>
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="title" [(ngModel)]="newBlog.title" name="title"
+                        placeholder="Enter title" required>
+                </div>
+                <div class="mb-3">
+                    <label for="text" class="form-label">Content</label>
+                    <textarea class="form-control" id="text" [(ngModel)]="newBlog.text" name="text"
+                        placeholder="Enter content" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" (click)="onSubmit()">Create Blog</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h1>{{ profile.firstname }} {{ profile.lastname }}</h1>
+            <h1>{{ profile.profilDescription }}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h2>{{ profile.firstname }}'s Blogs</h2>
+            <div *ngFor="let blog of blogs" class="mb-2 p-2 border rounded">
+                <div [routerLink]="['/blogDetails', blog.id]">
+                    <h3>{{ blog.title }}</h3>
+                    <p>{{ blog.text }}</p>
+                </div>
+                <div>
+                    <button (click)="upvote(blog.id)" class="btn btn-success btn-sm mr-1">Upvote</button>
+                    <button (click)="downvote(blog.id)" class="btn btn-danger btn-sm">Downvote</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
